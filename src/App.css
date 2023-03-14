@@ -37,3 +37,37 @@ body {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+.card:hover {
+  cursor: pointer
+}
+
+
+.theatre {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px
+}
+
+.seatlist {
+
+  width: 400px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  row-gap: 5px;
+  justify-content: center;
+  align-items: center;
+  /* column-gap: 5px */
+}
+
+.seats {
+  margin-top: 20px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
