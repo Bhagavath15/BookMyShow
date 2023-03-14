@@ -24,8 +24,14 @@ export function Seats() {
 }
 
 function Seat() {
-    const [seat, setSeat] = useState(Array(100).fill(<IconButton onClick={() => console.log("clicked")}
-        color="success"><CheckBoxOutlineBlankIcon /></IconButton>))
+    const [active, setActive] = useState(true)
+    const handleClick = () => {
+        setActive(!active)
+    }
+    const [seat, setSeat] = useState(Array(100).fill(<IconButton
+        color={active ? "success" : "primary"}
+        onClick={handleClick}
+    ><CheckBoxOutlineBlankIcon /></IconButton>))
     return (
         <div className="seatlist">
 
