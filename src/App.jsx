@@ -78,7 +78,6 @@ function MovieDetails({ movieList }) {
       <div className="movie-detail-container">
         <h1>Movie Details of {movie.name}</h1>
       </div>
-      <Button variant="contained" startIcon={<KeyboardBackspaceIcon />} onClick={() => navigate(-1)}>Back</Button>
 
     </div>
 
