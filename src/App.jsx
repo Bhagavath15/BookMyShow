@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import { Routes, Route, Link, useNavigate, useParams } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import { Routes, Route, Link, useNavigate, useParams } from "react-router-dom";
 import InfoIcon from '@mui/icons-material/Info';
 
-
 export default function App() {
+
   const [movieList, setMovieList] = useState([{
     "id": "99",
     "name": "Vikram",
@@ -41,53 +45,35 @@ export default function App() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 0.05 }}>
-              Home
-            </Typography>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Movies
-            </Typography>
-            <Button color="inherit">Login</Button>
+            <Button onClick={() => navigate("/")} color="inherit">Home</Button>
+            <Button onClick={() => navigate("/movies")} color="inherit">Movie</Button>
           </Toolbar>
         </AppBar>
       </Box>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<MovieList movieList={movieList} />} />
-        <Route path="/movies/:id" element={<MovieDetails movieList={movieList} setMovieList={setMovieList} />} />
+        <Route path="/movies" element={<MovieList movieList={movieList} setMovieList={setMovieList} />} />
+        <Route path="/movies/:id" element={<MovieDetails movieList={movieList} />} />
       </Routes>
-      {/* <Home />
-      <MovieList /> */}
+
     </div>
   )
 }
+
 function MovieDetails({ movieList }) {
   const { id } = useParams()
   const movie = movieList[id]
-  return (
-    <div>
-      <iframe
-        width="100%"
-        height="650"
-        src={movie.trailer}
-        title="Marvel"
-        frameborder="0"
-        allow="accelerometer; autoplay;clipboard-white"
-        allowfullscreen
-      ></iframe>
-      <div className="movie-detail-container">
-        <h1>Movie Details of {movie.name}</h1>
-      </div>
 
+  return (
+    <div className="movie-detail-container">
+      <h1>Movie Details of {movie.name}</h1>
     </div>
 
   )
 }
-
 function Home() {
   return (
-    <div>Welcome to bookmyshow</div>
-
+    <div>Book my show</div>
   )
 }
 
@@ -99,27 +85,34 @@ function MovieList({ movieList }) {
     </div>
   )
 }
+
+
 function Movies({ movie, id }) {
   const navigate = useNavigate()
   return (
-    <div className="movie-container">
-      <img className="movie-poster" src={movie.poster} alt={movie.name} />
+    <Card>
 
-      <div>
-        <div className="movie-data">
+      <div className="movie-container">
 
-          <p className="movie-name"><h2>{movie.name}</h2>
-          </p>
-          <IconButton color="primary" fontSize="small"
-            onClick={() => navigate(`/movies/${id}`)}
-            arial-label="movie-details">
-            <InfoIcon />
-          </IconButton>
-          <p className="movie-rating">⭐{movie.rating}</p>
+        <img className="movie-poster" src={movie.poster} alt={movie.name} />
+        <CardContent>
+          <div>
+            <div className="movie-data">
+              <CardActions>
+                <p className="movie-name"><h2>{movie.name}
+                  <IconButton color="primary" fontSize="small"
+                    onClick={() => navigate(`/movies/${id}`)}>
+                    <InfoIcon /></IconButton>
+                </h2></p>
+                <p className="movie-rating">⭐{movie.rating}</p>
+              </CardActions>
+            </div>
+            <p className="movie-summary">{movie.summary}</p>
+          </div>
 
-        </div>
-        <p className="movie-summary">{movie.summary}</p>
+        </CardContent>
       </div >
-    </div >
+
+    </Card >
   )
 }
