@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 export function Seats() {
@@ -24,27 +26,25 @@ export function Seats() {
 }
 
 function Seat() {
-    const [active, setActive] = useState(true)
-    const handleClick = () => {
-        setActive(!active)
-    }
-    const [seat, setSeat] = useState(Array(100).fill(<IconButton
-        color={active ? "success" : "primary"}
-        onClick={handleClick}
-    ><CheckBoxOutlineBlankIcon /></IconButton>))
+    const button = Array(100).fill(<CheckBoxOutlineBlankIcon />)
     return (
         <div className="seatlist">
-
-            {seat.map((st, id) => <AvalSeats key={st.id} seatList={st} />)}
+            {button.map((btn, i) => <AvalSeat key={i} button={btn} />)}
         </div>
     )
 }
-function AvalSeats({ seatList }) {
 
+function AvalSeat({ button }) {
+    const [active, setActive] = useState(true)
+    const [count, setCount] = useState(0)
+    const handleClick = () => {
+        setCount(count + 1)
+        setActive(!active)
+        console.log("clicked")
+    }
     return (
-
-
-        <div>{seatList}</div>
-
+        <div className="seats">
+            <Button color={active ? "success" : "inherit"} onClick={handleClick}>{button}{count}</Button>
+        </div>
     )
 }
